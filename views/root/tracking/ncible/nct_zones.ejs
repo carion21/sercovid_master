@@ -1,0 +1,57 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title">Nouvelle Cible</h3>
+                <p class="card-category">Type Zône</p>
+            </div>
+
+            <% if(locals.error) { %>
+            <div class="col-md-6 offset-md-3">
+                <br />
+                <div class="alert alert-danger"
+                    style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+                    <%= locals.error %>
+                </div>
+                <br />
+            </div>
+            <% } %>
+
+            <div class="card-body">
+                <form method="POST" action="/root/tracking/zones/newcible">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Latitude (Centre de Zône)</label>
+                                <input name="latitude" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Longitude (Centre de Zône)</label>
+                                <input name="longitude" type="text" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Rayon de Zône (en mètres)</label>
+                                <input name="rayon" type="number" class="form-control" required>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6 offset-md-3">
+                            <button type="submit" class="btn btn-primary ">
+                                Enregitrer && Cibler
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<%- extend('../../dashbase.ejs') %>
+
+<style>
+    .mapcard1 {
+        height: 150px;
+    }
+    .mapcard2 {
+        height: 200px;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">SERVICE MAPPING</p>
+                <h1 class="card-title">SUIVI INDIVIDUS
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-6">
+                    <div class="stats">
+                        <i class="material-icons">import_export</i>Temps Réel
+                    </div>
+                </div>
+                <div class="col-4 offset-2">
+                    <a href="/root/service_mapping/suivi_individus" class="btn btn-primary btn-round pull-right">
+                        Consulter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">SERVICE MAPPING</p>
+                <h1 class="card-title">ZÔNES À RISQUES
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-6">
+                    <div class="stats">
+                        <i class="material-icons">import_export</i>Temps Réel
+                    </div>
+                </div>
+                <div class="col-4 offset-2">
+                    <a href="/root/service_mapping/zonarisque" class="btn btn-primary btn-round pull-right">
+                        Consulter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">SERVICE MAPPING</p>
+                <h1 class="card-title">PANDEMIE NATIONALE
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-6">
+                    <div class="stats">
+                        <i class="material-icons">import_export</i>Temps Réel
+                    </div>
+                </div>
+                <div class="col-4 offset-2">
+                    <a href="/root/service_mapping/pandemie_nationale" class="btn btn-primary btn-round pull-right">
+                        Consulter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-8 offset-sm-2">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">SERVICE MAPPING</p>
+                <h1 class="card-title">SUIVI PANDEMIE MONDIALE
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-6">
+                    <div class="stats">
+                        <i class="material-icons">date_range</i>Dernières 24 Heures
+                    </div>
+                </div>
+                <div class="col-4 offset-2">
+                    <a href="/root/service_mapping/pandemie_mondiale" target="_blank" class="btn btn-primary btn-round pull-right">
+                        Consulter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

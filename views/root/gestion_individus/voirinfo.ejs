@@ -1,0 +1,195 @@
+<%- extend('../../dashbase.ejs') %>
+
+<div class="col-md-6 offset-3">
+    <div class="card card-profile">
+        <div class="card-avatar">
+            <a href="javascript:;">
+                <% if(individu.sexe == "homme") { %> 
+                    <img class="img" src="/images/bboy.png" />
+                <% } else  { %> 
+                    <img class="img" src="/images/bgirl.png" />
+                <% } %> 
+            </a>
+        </div>
+        <div class="card-body">
+            <h6 class="card-category text-gray"></h6>
+            <h3 class="card-title">
+                    <b>
+                        <%= individu.nom %> 
+                    </b>
+                    <%= individu.prenom %>
+            </h3>
+
+            <p class="card-description">
+                
+            </p>
+            <br>
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <div class="card-title">
+                        <h4>
+                            Informations complémentaires sur l'individu
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <th>
+                                        Identifiant
+                                    </th>
+                                    <td>
+                                        <%= individu.codeIndividu %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Téléphone
+                                    </th>
+                                    <td>
+                                        <%= individu.telephone %> 
+                                    </td>
+                                </tr>
+                                <tr>   
+                                    <th>
+                                        Nom
+                                    </th>
+                                    <td>
+                                        <%= individu.nom %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Prénom(s)
+                                    </th>
+                                    <td>
+                                        <%= individu.prenom %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Sexe
+                                    </th>
+                                    <td>
+                                        <% if(individu.sexe == "homme") { %> 
+                                            Masculin
+                                        <% } else { %> 
+                                            Féminin
+                                        <% } %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Âge
+                                    </th>
+                                    <td>
+                                        <%= individu.age %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Ville de résidence
+                                    </th>
+                                    <td>
+                                        <%= individu.villeResidence %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Est actif ?
+                                    </th>
+                                    <td>
+                                        <% if(individu.estActif == 1) { %> 
+                                            Oui
+                                        <% } else { %> 
+                                            Non
+                                        <% } %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Est une cible ??
+                                    </th>
+                                    <td>
+                                        <% if(individu.estCible == 1) { %> 
+                                            Oui
+                                        <% } else { %> 
+                                            Non
+                                        <% } %> 
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <div class="card-title">
+                        <h4>
+                            Interface de changement de statut
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row justify-content-around">
+                        <% if(individu.statut != 0) {%> 
+                            <a href="/root/gestion_individus/changer_statut/0/<%= individu.codeIndividu %>" class="btn btn-success btn-round">
+                                <i class="material-icons">sentiment_very_satisfied</i>
+                                <b>
+                                    INDIVIDU SAIN
+                                </b>
+                            </a>
+                        <% } %> 
+                        <% if(individu.statut != 1) {%> 
+                            <a href="/root/gestion_individus/changer_statut/1/<%= individu.codeIndividu %>" class="btn btn-warning btn-round">
+                                <i class="material-icons">sentiment_dissatisfied</i>
+                                <b>
+                                    INDIVIDU SUSPECT
+                                </b>
+                            </a>
+                        <% } %> 
+                        <% if(individu.statut != 2) {%> 
+                            <a href="/root/gestion_individus/changer_statut/2/<%= individu.codeIndividu %>" class="btn btn-danger btn-round">
+                                <i class="material-icons">sentiment_very_dissatisfied</i>
+                                <b>
+                                    INDIVIDU INFECTÉ
+                                </b>
+                            </a>
+                        <% } %> 
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <div class="card-header card-header-primary">
+                    <div class="card-title">
+                        <h4>
+                            Interface de ciblage ou déciblage
+                        </h4>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <% if(individu.estCible == 1) { %> 
+                        <a href="/root/gestion_individus/devient_cible/0/<%= individu.codeIndividu %>" class="btn btn-success btn-round">
+                            <i class="material-icons">gps_not_fixed</i>
+                            <b>
+                                Décibler
+                            </b>
+                        </a>
+                    <% } else { %> 
+                        <a href="/root/gestion_individus/devient_cible/1/<%= individu.codeIndividu %>" class="btn btn-warning btn-round text-dark">
+                            <i class="material-icons">gps_fixed</i>
+                            <b>
+                                Cibler
+                            </b>
+                        </a>
+                    <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

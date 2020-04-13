@@ -1,0 +1,180 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title">Tracking Spécial (personnalisée)</h3>
+                <p class="card-category">Type Individu</p>
+            </div>
+
+            <% if(locals.error) { %>
+            <div class="col-md-6 offset-md-3">
+                <br />
+                <div class="alert alert-danger"
+                    style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+                    <%= locals.error %>
+                </div>
+                <br />
+            </div>
+            <% } %>
+
+            <div class="card-body">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <div class="row justify-content-center">
+                                <div class="card-title">
+                                    <h3>
+                                        INFORMATIONS RELATIFS AU TRACKING
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="card-category">
+                                    <p>
+                                        Date et heure de début, de fin d'enregistrement des positions GPS de l'individu
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Identifiant</th>
+                                            <td>
+                                                <%= individu.codeIndividu %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Plus d'info.</th>
+                                            <td>
+                                                <a href="/root/gestion_individus/voir/<%= individu.codeIndividu %> "
+                                                    class="btn btn-primary">
+                                                    Consulter
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Premier Enregistrement</th>
+                                            <td>
+                                                <%= firstposition.dateRegister %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Dernier Enregistrement</th>
+                                            <td>
+                                                <%= lastposition.dateRegister %>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="col-md-10 offset-md-1">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <div class="row justify-content-center">
+                                <div class="card-title">
+                                    <h3>
+                                        RECHERCHE INDIVIDUS
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="row justify-content-center">
+                                <div class="card-category">
+                                    <p>
+                                        Rechercher des individus ayant été en contact avec l'individu
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <% if(locals.error) { %>
+                            <div class="col-md-6 offset-md-3">
+                                <br/>
+                                <div class="alert alert-danger" style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+                                    <%= locals.error %>
+                                </div>
+                                <br/>
+                            </div>
+                        <% } %>
+
+                        <div class="card-body">
+
+                            <% if(locals.notrack == 0) { %>
+                                <form method="POST"
+                                    action="/root/tracking/individus/tracking_special/<%= individu.codeIndividu %> ">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Date Début</label>
+                                                <input name="datedebut" type="date" class="form-control"
+                                                    value=<% if(locals.excontent) { %> <%= excontent.datedebut %> <% } %>>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Heure Début</label>
+                                                <input name="heuredebut" type="time" class="form-control"
+                                                    value=<% if(locals.excontent) { %> <%= excontent.heuredebut %> <% } %>>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Date Fin</label>
+                                                <input name="datefin" type="date" class="form-control"
+                                                    value=<% if(locals.excontent) { %> <%= excontent.datefin %> <% } %>>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Heure Fin</label>
+                                                <input name="heurefin" type="time" class="form-control"
+                                                    value=<% if(locals.excontent) { %> <%= excontent.heurefin %> <% } %>>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-3">
+                                            <div class="form-group">
+                                                <label class="bmd-label-floating">Rayon</label>
+                                                <input name="rayon" type="text" class="form-control" required
+                                                    value=<% if(locals.excontent) { %> <%= excontent.identifiant %> <% } %>>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 justify-content-center">
+                                        <button type="submit" class="btn btn-primary pull-right">
+                                            Rechercher && Cibler
+                                        </button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            <% } else { %>
+                                <div class="alert alert-warning text-dark" style="text-align: center;">
+                                    <h2>
+                                        Tracking de l'individu actuel impossible 
+                                        <br>
+                                        (Aucun enregistrement GPS de lui)
+                                    </h2>
+                                </div>
+                            <% } %>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>

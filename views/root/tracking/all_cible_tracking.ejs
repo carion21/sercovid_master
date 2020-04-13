@@ -1,0 +1,7 @@
+<%- extend('../../dashbase.ejs') %>
+
+<% if(locals.typeTracking == 1) { %> 
+    <%- include('./acible/act_individus.ejs') %> 
+<% } else { %> 
+    <%- include('./acible/act_zones.ejs') %> 
+<% } %> 

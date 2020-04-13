@@ -1,0 +1,475 @@
+<%- extend('../../dashbase.ejs') %>
+
+<style>
+    .statcard1 {
+        height: 150px;
+    }
+    .statcard2 {
+        height: 200px;
+    }
+</style>
+
+<!-- STATISTIQUES CONCERNANT LES INDIVIDUS INSCRITES, CONNECTÉS ET DECONNECTÉS-->
+
+<div class="row" style="text-align: center;">
+    <div class="col-8 offset-2">
+        <div class="alert alert-info">
+            <h4>
+                STATISTIQUES CONCERNANT LES INDIVIDUS INSCRITS, CONNECTÉS ET DECONNECTÉS
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS INSCRITS</p>
+                <h1 class="card-title">100
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS CONNECTÉS</p>
+                <h1 class="card-title">75
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>75%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS DÉCONNECTÉS</p>
+                <h1 class="card-title">25
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>25%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+
+<!-- STATISTIQUES CONCERNANT LES INDIVIDUS SUIVIS, ACTIFS ET NON ACTIFS-->
+
+<div class="row" style="text-align: center;">
+    <div class="col-8 offset-2">
+        <div class="alert alert-info">
+            <h4>
+                STATISTIQUES CONCERNANT LES INDIVIDUS SUIVIS, ACTIFS ET NON ACTIFS
+            </h4>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS SUIVIS</p>
+                <h1 class="card-title">100
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS ACTIFS</p>
+                <h1 class="card-title">75
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>75%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS NON ACTIFS</p>
+                <h1 class="card-title">25
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>25%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<!-- STATISTIQUES CONCERNANT LES INDIVIDUS SAINS, SUSPECTS ET INFECTES
+     EN FONCTION DES PERSONNES SUIVIES -->
+
+
+<div class="row" style="text-align: center;">
+    <div class="col-8 offset-2">
+        <div class="alert alert-info">
+            <h4>
+                STATISTIQUES CONCERNANT LES INDIVIDUS SAINS, SUSPECTS ET INFECTES 
+            </h4>
+            <br>
+            <h6>
+                ( EN FONCTION DES PERSONNES SUIVIES PAR LE SYSTÈME )
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS SAINS</p>
+                <h1 class="card-title">100
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>50%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">warning</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS SUSPECTS</p>
+                <h1 class="card-title">750000
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>37,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">error</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS INFECTES</p>
+                <h1 class="card-title">25
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>12,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">hotel</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS DÉCEDÉS</p>
+                <h1 class="card-title">0
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>0%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<!-- STATISTIQUES CONCERNANT LES INDIVIDUS INFECTÉS, EN COURS DE TRAITEMENT, GUERIS
+                ET DECEDES ( EN COTE D'IVOIRE ) -->
+
+<div class="row" style="text-align: center;">
+    <div class="col-8 offset-2">
+        <div class="alert alert-info">
+            <h4>
+                STATISTIQUES CONCERNANT LES INDIVIDUS INFECTÉS, EN COURS DE TRAITEMENT, GUERIS
+                ET DECEDES 
+            </h4>
+            <br>
+            <h6>
+                ( EN COTE D'IVOIRE )
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS INFECTÉS</p>
+                <h1 class="card-title">100
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>50%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS EN TRAITEMENT</p>
+                <h1 class="card-title">75
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>37,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS GUÉRIS</p>
+                <h1 class="card-title">25
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>12,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard1">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS DÉCÉDÉS</p>
+                <h1 class="card-title">0
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>0%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>
+
+<div class="row" style="text-align: center;">
+    <div class="col-8 offset-2">
+        <div class="alert alert-info">
+            <h4>
+                STATISTIQUES CONCERNANT LES INDIVIDUS INFECTÉS, EN COURS DE TRAITEMENT, GUERIS
+                ET DECEDES 
+            </h4>
+            <br>
+            <h6>
+                ( DANS LE MONDE ENTIER )
+            </h6>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS INFECTÉS</p>
+                <h1 class="card-title">100000000
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>50%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-warning card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS EN TRAITEMENT</p>
+                <h1 class="card-title">75
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>37,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-success card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS GUÉRIS</p>
+                <h1 class="card-title">25
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>12,5%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon statcard2">
+                <div class="card-icon">
+                    <i class="material-icons">people</i>
+                </div>
+                <p class="card-category">TOTAL INDIVIDUS DÉCÉDÉS</p>
+                <h1 class="card-title">0
+                    <br>
+                    <small style="font-size: 25px">soit</small>
+                    <small><b>0%</b></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="stats">
+                    <i class="material-icons">date_range</i>Dernières 24 Heures
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br><br>

@@ -1,0 +1,63 @@
+<%- extend('../../dashbase.ejs') %>
+
+<div class="row justify-content-around">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">person_add</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">my_location</i>
+                </div>
+                <p class="card-category">SERVICE TRACKING</p>
+                <h1 class="card-title">NOUVELLE CIBLE
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-8">
+                    <div class="stats">
+                        <i class="material-icons">person_add</i>
+                        <i class="material-icons">my_location</i>Nouvelle cible de type "INDIVIDUS"
+                    </div>
+                </div>
+                <div class="col-4">
+                    <a href="/root/tracking/individus/newcible" class="btn btn-primary btn-round pull-right">
+                        Commencer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon mapcard1">
+                <div class="card-icon">
+                    <i class="material-icons">list</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">my_location</i>
+                </div>
+                <p class="card-category">SERVICE TRACKING</p>
+                <h1 class="card-title">TOUTES LES CIBLES
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-footer">
+                <div class="col-8">
+                    <div class="stats">
+                        <i class="material-icons">list</i>
+                        <i class="material-icons">my_location</i>Toutes les cibles de type "INDIVIDUS"
+                    </div>
+                </div>
+                <div class="col-4">
+                    <a href="/root/tracking/individus/allcible" class="btn btn-primary btn-round pull-right">
+                        Commencer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

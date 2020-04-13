@@ -1,0 +1,88 @@
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <h3 class="card-title">
+                    Liste de toutes les cibles
+                </h3>
+                <p class="card-category">
+                    Type Zônes
+                </p>
+            </div>
+            <div class="card-body">
+                <% if(locals.info == "yes") {%> 
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="text-primary">
+                            <th>
+                                Identifiant
+                            </th>
+                            <th>
+                                Latitude
+                            </th>
+                            <th>
+                                Longitude
+                            </th>
+                            <th>
+                                Rayon
+                            </th>
+                            <th>
+                                Statut
+                            </th>
+                            <th>
+                                Plus de détails
+                            </th>
+                        </thead>
+                        <tbody>
+                            <% for(cible of z_cibles) { %> 
+                            <tr>
+                                <td>
+                                    <%= cible.codeZone %> 
+                                </td>
+                                <td>
+                                    <%= cible.latitude %> 
+                                </td>
+                                <td>
+                                    <%= cible.latitude %> 
+                                </td>
+                                <td>
+                                    <%= cible.rayon %> 
+                                </td>
+                                <td>
+                                    <% if(cible.statut == 0) { %>
+                                        <span class="text-success">
+                                            <b>
+                                                Zône Saine
+                                            </b>
+                                        </span>
+                                        <% } %>
+                                        <% if(cible.statut == 1) { %>
+                                        <span class="text-warning">
+                                            <b>
+                                                Zône Risquée
+                                            </b>
+                                        </span>
+                                        <% } %>
+                                </td>
+                                <td>
+                                    <a href="/root/tracking/zones/details/<%= cible.codeZone %> "
+                                        class="btn btn-primary btn-round">
+                                        Voir Plus
+                                    </a>
+                                </td>
+                            </tr>
+                            <% } %> 
+                        </tbody>
+                    </table>
+                </div>
+            <% } else { %> 
+                <div class="alert alert-warning" style="text-align: center; color: black;">
+                    <h3>
+                        <%= locals.resultatVide %>
+                    </h3>
+                </div>
+            <% } %> 
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include('./dashbase/head.ejs') %> 
+
+<body class="">
+  <div class="wrapper ">
+    <%- include('./dashbase/sidebar.ejs') %>
+    <div class="main-panel">
+    <%- include('./dashbase/navbar.ejs') %> 
+      <div class="content">
+
+          <div class="container-fluid">
+
+              <!-- ICI LE CONTENU  -->
+
+              <!-- DEBUT CONTENU -->
+
+              <%- content %>
+
+              <!-- FIN CONTENU -->
+
+          </div>
+      </div>
+        <%# include('./dashbase/footer.ejs') %> 
+    </div>
+  </div>
+    <%- include('./dashbase/plugin.ejs') %> 
+<%- include('./dashbase/scriptbase.ejs') %> 
+</body>
+
+</html>
