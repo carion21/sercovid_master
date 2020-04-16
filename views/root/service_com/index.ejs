@@ -1,1 +1,67 @@
 <%- extend('../../dashbase.ejs') %>
+
+<style>
+    .listcard2 {
+        height: 100px;
+    }
+    .listcard2 {
+        height: 150px;
+    }
+</style>
+
+<div class="row justify-content-around">
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon listcard2">
+                <div class="card-icon">
+                    <i class="material-icons">plus_one</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">notifications</i>
+                </div>
+                <p class="card-category">SERVICE COMMUNICATION</p>
+                <h3 class="card-title">
+                    <b>
+                        AJOUTER UNE NOTIFICATION
+                    </b>
+                    <br>
+                    <small></small>
+                </h3>
+            </div>
+            <div class="card-footer">
+                <div class="col-4 offset-8">
+                    <a href="/root/service_com/notifications/new" class="btn btn-primary btn-round pull-right">
+                        Ici
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-6">
+        <div class="card card-stats">
+            <div class="card-header card-header-primary card-header-icon listcard2">
+                <div class="card-icon">
+                    <i class="material-icons">list</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">notifications</i>
+                </div>
+                <p class="card-category">SERVICE COMMUNICATION</p>
+                <h3 class="card-title">
+                    <b>
+                        LISTER LES NOTIFICATIONS
+                    </b>
+                    <br>
+                    <small></small>
+                </h3>
+            </div>
+            <div class="card-footer">
+                <div class="col-4 offset-8">
+                    <a href="/root/service_com/notifications/list" class="btn btn-primary btn-round pull-right">
+                        Consulter
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

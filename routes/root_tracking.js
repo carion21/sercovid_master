@@ -7,6 +7,7 @@ const resultatVide = require('../config/message').resultatVide()
 
 const Individu = require('../models/Individu')
 const PositionIndividu = require('../models/PositionIndividu')
+const Zone = require('../models/Zone')
 
 const geolib = require('geolib')
 
@@ -285,12 +286,75 @@ router.post('/:trackercible/newcible', (req, res, next) => {
             var latitude = content.latitude
             var longitude = content.longitude
             var rayon = content.rayon
+            var intitule = content.intitule
 
             console.log(content)
+            console.log(isNaN(parseFloat(latitude)))
 
-            if (latitude !== "" && longitude !== "" && rayon !== "") {
+            if (latitude !== "" && longitude !== "" && rayon !== "" && intitule !== "") {
 
-                //code ici
+                if (!isNaN(parseFloat(latitude)) && Math.sign(parseFloat(latitude)) != 0) {
+                    if (!isNaN(parseFloat(longitude)) && Math.sign(parseFloat(longitude)) != 0) {
+                        if (!isNaN(parseFloat(rayon)) && Math.sign(parseFloat(rayon)) != -1 && Math.sign(parseFloat(rayon)) != 0) {
+
+                            var zone = {
+                                codeZone: Zone.genCodeZone(),
+                                intitule: intitule,
+                                latitudeCentre: parseFloat(latitude),
+                                longitudeCentre: parseFloat(longitude),
+                                rayon: parseFloat(rayon),
+                                statut: 0,
+                                mettreEnCorbeille: 0
+                            }
+
+                            Zone.create(zone, (msg) => {
+                                console.log(msg)
+                            })
+
+                            res.redirect('/root/tracking/'+trackercible+'/allcible')
+
+                        } else {
+                            var error = "SVP, le rayon doit être un nombre entier ou à virgule"
+
+                            var type = 2
+                            res.render(
+                                'root/tracking/new_cible_tracking', {
+                                    tabside: tabside,
+                                    idpage: idpage,
+                                    typeTracking: type,
+                                    error: error,
+                                    excontent: content
+                                }
+                            );
+                        }
+                    } else {
+                        var error = "SVP, la longitude doit être un nombre entier ou à virgule"
+
+                        var type = 2
+                        res.render(
+                            'root/tracking/new_cible_tracking', {
+                                tabside: tabside,
+                                idpage: idpage,
+                                typeTracking: type,
+                                error: error,
+                                excontent: content
+                            }
+                        );
+                    }
+                } else {
+                    var error = "SVP, la latitude doit être un nombre entier ou à virgule"
+
+                    var type = 2
+                    res.render(
+                        'root/tracking/new_cible_tracking', {
+                            tabside: tabside,
+                            idpage: idpage,
+                            typeTracking: type,
+                            error: error,
+                            excontent: content
+                        }
+                    );
+                }
 
                 res.redirect('/root/tracking/' + trackercible + 'newcible')
             } else {
@@ -302,7 +366,8 @@ router.post('/:trackercible/newcible', (req, res, next) => {
                         tabside: tabside,
                         idpage: idpage,
                         typeTracking: type,
-                        error: error
+                        error: error,
+                        excontent: content
                     }
                 );
             }
@@ -352,24 +417,27 @@ router.get('/:trackercible/allcible', (req, res, next) => {
             break;
 
         case 'zones':
-            //code restant ici
-            var futzones = null
-            if (futzones !== null) {
-                var info = "yes"
-            } else {
-                var info = "no"
-            }
-            var type = 2
-            res.render(
-                'root/tracking/all_cible_tracking', {
-                    tabside: tabside,
-                    idpage: idpage,
-                    typeTracking: type,
-                    info: info,
-                    z_cibles: futzones,
-                    resultatVide: resultatVide
+            Zone.findByOneField('mettre_en_corbeille', 0, (futzones) => {
+                if(futzones.length !== 0 && futzones !== null){
+                    var info = "yes"
+                } else {
+                    var info = "no"
                 }
-            );
+
+                var type = 2
+                res.render(
+                    'root/tracking/all_cible_tracking', {
+                        tabside: tabside,
+                        idpage: idpage,
+                        typeTracking: type,
+                        info: info,
+                        z_cibles: futzones,
+                        resultatVide: resultatVide
+                    }
+                );
+            })
+            
+            
             break;
 
         default:
@@ -406,8 +474,8 @@ router.get('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                 var datedebut = futfirst[0].dateRegister
                                 var datefin = futlast[0].dateRegister
 
-                                var dd = Date.parse(""+datedebut+"")
-                                var df = Date.parse(""+datefin+"")
+                                var dd = Date.parse("" + datedebut + "")
+                                var df = Date.parse("" + datefin + "")
 
                                 console.log(dd)
                                 console.log(df)
@@ -450,14 +518,22 @@ router.get('/:trackercible/tracking_special/:codecible', (req, res, next) => {
             break;
 
         case 'zones':
-            var type = 2
-            res.render(
-                'root/tracking/tracking_special', {
-                    tabside: tabside,
-                    idpage: idpage,
-                    typeTracking: type
+            Zone.findByOneField('code_zone', codecible, (futzone) => {
+                if(futzone.length !== 0 && futzone !== null){
+                    var type = 2
+                    res.render(
+                        'root/tracking/tracking_special', {
+                            tabside: tabside,
+                            idpage: idpage,
+                            typeTracking: type,
+                            zone: futzone[0]
+                        }
+                    );
+                } else {
+                    res.redirect('/root/tracking/'+trackercible+'/allcible')
                 }
-            );
+            })
+            
             break;
 
         default:
@@ -542,8 +618,8 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                         var datefin = user_date_fin
                                     }
 
-                                    var dd = Date.parse(""+datedebut+"")
-                                    var df = Date.parse(""+datefin+"")
+                                    var dd = Date.parse("" + datedebut + "")
+                                    var df = Date.parse("" + datefin + "")
 
                                     var rayon = parseFloat(rayon)
 
@@ -553,34 +629,34 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
 
                                     PositionIndividu.findByOneField('code_individu', codecible, (futciblepositions) => {
                                         if (futciblepositions.length != 0 && futciblepositions != null) {
-                                            
+
                                             var ciblepositions = []
-                                            
-                                            console.log("AVANT FILTRE "+futciblepositions.length)
+
+                                            console.log("AVANT FILTRE " + futciblepositions.length)
                                             console.log(ciblepositions.length)
                                             futciblepositions.forEach(cibleposition => {
-                                                var dcp  = Date.parse(cibleposition.dateRegister)
+                                                var dcp = Date.parse(cibleposition.dateRegister)
                                                 if (dcp >= dd && dcp <= df && cibleposition.latitude != "" && cibleposition.latitude != "") {
-                                                    
+
                                                     //console.log("dcp :"+dcp)
 
                                                     ciblepositions.push(cibleposition)
 
-                                                }                                  
+                                                }
                                             });
 
                                             console.log("APRES FILTRE" + ciblepositions.length)
 
-                                            var bonne_distance = 1.2*rayon
+                                            var bonne_distance = 1.2 * rayon
 
-                                            console.log("bonne distance : "+bonne_distance)
-                                            
+                                            console.log("bonne distance : " + bonne_distance)
+
                                             var totalciblepositions = []
-                                            for (let index = 0; index < ciblepositions.length-1; index++) {
+                                            for (let index = 0; index < ciblepositions.length - 1; index++) {
                                                 const aposition = ciblepositions[index];
-                                                const bposition = ciblepositions[index+1];
+                                                const bposition = ciblepositions[index + 1];
 
-                                                console.log("INDEX : "+index)
+                                                console.log("INDEX : " + index)
 
                                                 const a = {
                                                     latitude: aposition.latitude,
@@ -593,7 +669,7 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
 
                                                 const distance = geolib.getDistance(a, b)
 
-                                                
+
                                                 //var bonne_distance = 1.2*rayon
 
                                                 //console.log("bonne distance : "+bonne_distance)
@@ -607,29 +683,29 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                         //console.log("inutile je te saute alors")
                                                         continue
                                                     }
-                                                    if(distance > bonne_distance){
+                                                    if (distance > bonne_distance) {
                                                         //console.log("distance actuelle : "+distance)
                                                         let z = 0
                                                         //console.log("attention distance : "+distance)
-                                                        
-                                                        
+
+
                                                         let miciblepositions = []
                                                         let miposition = {}
                                                         //var actucentreposition = {}
                                                         let newdistance = distance
                                                         let maincentre = {}
-                                                        
+
                                                         while (newdistance > bonne_distance) {
 
-                                                            
+
                                                             //console.log("NEW DISTANCE WHILE: "+newdistance)
                                                             //console.log("Z WHILE: "+z)
-                                                            
+
                                                             if (z == 0) {
-                                                                console.log("recorrection en cours : "+z)
+                                                                console.log("recorrection en cours : " + z)
                                                                 console.log("je passe au premier fourneau actu ")
                                                                 let centre = geolib.getCenter([
-                                                                    a,b
+                                                                    a, b
                                                                 ])
                                                                 miposition = {
                                                                     centre: centre,
@@ -640,13 +716,13 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                                 miciblepositions.push(miposition)
 
                                                                 let maincentre = centre
-                                                                
+
                                                                 let newdistance = geolib.getDistance(a, maincentre)
                                                                 //console.log("NEWDISTANCE : "+newdistance)
                                                                 //z++
                                                                 //break
                                                             } else {
-                                                                console.log("recorrection en cours : "+z)
+                                                                console.log("recorrection en cours : " + z)
                                                                 console.log("je passe au second fourneau actu ")
 
                                                                 for (let x = 0; x < miciblepositions.length; x++) {
@@ -660,14 +736,14 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                                         }
                                                                     });
 
-                                                                    if (cibleposit.znaissance == z-1) {
+                                                                    if (cibleposit.znaissance == z - 1) {
 
                                                                         let centre1 = geolib.getCenter([
-                                                                            cibleposit.centre,cibleposit.parent1
+                                                                            cibleposit.centre, cibleposit.parent1
                                                                         ])
 
                                                                         let centre2 = geolib.getCenter([
-                                                                            cibleposit.centre,cibleposit.parent2
+                                                                            cibleposit.centre, cibleposit.parent2
                                                                         ])
 
                                                                         miposition1 = {
@@ -698,11 +774,11 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
 
                                                                     newdistance = geolib.getDistance(a, maincentre)
                                                                     //z++
-                                                                    
+
                                                                 }
                                                                 //z++
                                                             }
-                                                            console.log("recorrection effectuée => Nouvelle distance :"+newdistance)
+                                                            console.log("recorrection effectuée => Nouvelle distance :" + newdistance)
                                                             z++
                                                             //console.log("NEWDISTANCE : "+newdistance)
                                                             //console.log("NEW Z : "+z)
@@ -719,19 +795,34 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                 }
                                             }
 
-                                            console.log("BRUTES CIBLES POSITIONS  : "+futciblepositions.length)
-                                            console.log("TOTAL CIBLES POSITIONS : "+totalciblepositions.length)
+                                            console.log("BRUTES CIBLES POSITIONS  : " + futciblepositions.length)
+                                            console.log("TOTAL CIBLES POSITIONS : " + totalciblepositions.length)
 
                                             let totalothercible = []
+                                            let bonnepositions = []
                                             //let othercibles = []
                                             PositionIndividu.all((allpositions) => {
-                                                if(allpositions.length != 0 && allpositions != null){
+                                                if (allpositions.length != 0 && allpositions != null) {
+                                                    for (let index = 0; index < allpositions.length; index++) {
+                                                        const actuposition = allpositions[index];
+
+                                                        var dateactuposition = Date.parse(actuposition.dateRegister)
+
+                                                        
+                                                        if (dateactuposition >= dd && dateactuposition <= df) {
+                                                            bonnepositions.push(actuposition)
+                                                        } else {
+                                                            console.log("Position inutile")
+                                                            continue;
+                                                        }
+                                                        
+                                                    }
                                                     console.log(true)
                                                     console.log(totalothercible.length)
                                                     let actudistance;
                                                     totalciblepositions.forEach(cibleposition => {
-                                                        allpositions.forEach(otherposition => {
-                                                            
+                                                        bonnepositions.forEach(otherposition => {
+
                                                             let cposition = {
                                                                 latitude: cibleposition.latitude,
                                                                 longitude: cibleposition.longitude
@@ -744,10 +835,10 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                             actudistance = geolib.getDistance(cposition, oposition)
 
                                                             //STOCKAGE
-                                                            if(actudistance <= rayon && otherposition.codeIndividu !== codecible) {
+                                                            if (actudistance <= rayon && otherposition.codeIndividu !== codecible) {
                                                                 //console.log(otherposition.codeIndividu)
                                                                 if (totalothercible.length !== 0 || totalothercible !== null || totalothercible !== undefined) {
-                                                                    if(totalothercible.indexOf(otherposition.codeIndividu) == -1){
+                                                                    if (totalothercible.indexOf(otherposition.codeIndividu) == -1) {
                                                                         totalothercible.push(otherposition.codeIndividu)
                                                                     }
                                                                 } else {
@@ -760,16 +851,43 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
                                                     });
 
                                                     console.log(totalothercible)
-                                                    console.log("nombres des contacts possibles : "+totalothercible.length)
+                                                    console.log("nombres des contacts possibles : " + totalothercible.length)
 
                                                 }
                                             })
 
-                                            res.redirect('/root/tracking/' + trackercible + '/tracking_special/' + codecible)
+                                            var result = {
+                                                type: trackercible,
+                                                identifiantCible: codecible,
+                                                dateDebut: new Date(dd),
+                                                heureDebut: "Non pris en charge pour l'instant",
+                                                dateFin: new Date(df),
+                                                heureFin: "Non pris en charge pour l'instant",
+                                                rayon: rayon,
+                                                nbIndividus: totalothercible.length,
+                                                individus: totalothercible
+                                                
+                                            }
+
+                                            var type = 1
+
+                                            res.render(
+                                                'root/tracking/tracking_special', {
+                                                    tabside: tabside,
+                                                    idpage: idpage,
+                                                    typeTracking: type,
+                                                    firstposition: futfirst[0],
+                                                    lastposition: futlast[0],
+                                                    individu: individu,
+                                                    notrack: 0,
+                                                    excontent: content,
+                                                    result: result
+                                                }
+                                            );
                                         }
                                     })
 
-                                    
+
                                 } else {
                                     var type = 1
                                     var error = "SVP, Le rayon est obligatoire, doit être numérique positif et différent de 0."
@@ -802,20 +920,241 @@ router.post('/:trackercible/tracking_special/:codecible', (req, res, next) => {
             break;
 
         case 'zones':
-            var type = 2
-            res.render(
-                'root/tracking/tracking_special', {
-                    tabside: tabside,
-                    idpage: idpage,
-                    typeTracking: type
+
+            Zone.findByOneField('code_zone', codecible, (futzone) => {
+                if(futzone.length !== 0 && futzone !== null){
+
+                    let zone = futzone[0]
+
+                    // VALEURS DU FORMULAIRE
+                    var rayon = zone.rayon
+                    var user_date_debut = content.datedebut
+                    var user_heure_debut = content.heuredebut
+                    var user_date_fin = content.datefin
+                    var user_heure_fin = content.heurefin
+
+
+                    //VALEURS RÉELLES DES DATES DES POSITIONS FIRST ET LAST
+                    //var vrai_date_debut = firstposition.dateRegister
+                    var vrai_date_debut = 0
+                    var vrai_date_fin = Date.parse(new Date())
+
+                    //VALEURS DES DATES DE DEBUT ET DE FIN QUI SERONT UTILISÉES ICI
+                    var datedebut;
+                    var datefin;
+
+                    var atcas;
+
+                    if(user_date_debut === "" && user_date_fin === ""){
+                        atcas = 0
+                        datedebut = vrai_date_debut
+                        datefin = vrai_date_fin
+                    }
+                    if(user_date_debut !== "" && user_date_fin === ""){
+                        atcas = 1
+                        datedebut = Date.parse(user_date_debut)
+                        datefin = vrai_date_fin
+                    }
+                    if(user_date_debut === "" && user_date_fin !== ""){
+                        atcas = 2
+                        datedebut = vrai_date_debut
+                        datefin = Date.parse(user_date_fin)
+                    }
+                    if(user_date_debut !== "" && user_date_fin !== ""){
+                        atcas = 3
+                        datedebut = Date.parse(user_date_debut)
+                        datefin = Date.parse(user_date_fin)
+                    }
+
+                    if(datedebut < datefin){
+
+                        if (datefin >= vrai_date_fin) {
+                            console.log(datedebut)
+                            console.log(datefin)
+
+                            let totalothercible = []
+
+                            //PREMIERALGORITHME ANS OPTIMISATION
+                            PositionIndividu.all((futpositions) => {
+                                if(futpositions.length !== 0 && futpositions !== null){
+                                    for (let index = 0; index < futpositions.length; index++) {
+                                        const otherposition = futpositions[index];
+
+                                        var dateposition = Date.parse(otherposition.dateRegister)
+                                        if (dateposition >= datedebut && dateposition <= datefin) {
+
+                                            var aposition = {
+                                                latitude: otherposition.latitude,
+                                                longitude: otherposition.longitude
+                                            }
+                                            var zposition = {
+                                                latitude: zone.latitudeCentre,
+                                                longitude: zone.longitudeCentre
+                                            }
+                                            let actudistance = geolib.getDistance(aposition, zposition)
+                                            let rayon = parseFloat(zone.rayon)
+    
+                                            //STOCKAGE
+                                            if (actudistance <= rayon) {
+                                                //console.log(otherposition.codeIndividu)
+                                                if (totalothercible.length !== 0 || totalothercible !== null || totalothercible !== undefined) {
+                                                    if (totalothercible.indexOf(otherposition.codeIndividu) == -1) {
+                                                        totalothercible.push(otherposition.codeIndividu)
+                                                    }
+                                                } else {
+                                                    totalothercible.push(oposition.codeIndividu)
+                                                }
+        
+                                                
+        
+                                            }
+                                        } else {
+                                            console.log("Position inutile")
+                                            continue;
+                                        }
+                                    }
+                                } else {
+                                    var error = "SVP, il n'y a apparemment aucunes données GPS en stock sur les individus ."
+                                    var type = 2
+                                    res.render(
+                                        'root/tracking/tracking_special', {
+                                            tabside: tabside,
+                                            idpage: idpage,
+                                            typeTracking: type,
+                                            zone: zone,
+                                            error, 
+                                            excontent: content
+                                        }
+                                    );
+                                }
+
+                                console.log(totalothercible)
+                                console.log("Nombres de personnes étant dans cette zône selon les paramètres : "+totalothercible.length)
+
+                                var result = {
+                                    type: trackercible,
+                                    identifiantCible: codecible,
+                                    dateDebut: new Date(datedebut),
+                                    heureDebut: "Non pris en charge pour l'instant",
+                                    dateFin: new Date(datefin),
+                                    heureFin: "Non pris en charge pour l'instant",
+                                    rayon: rayon,
+                                    nbIndividus: totalothercible.length,
+                                    individus: totalothercible
+                                    
+                                }
+        
+                                var type = 2
+                                res.render(
+                                    'root/tracking/tracking_special', {
+                                        tabside: tabside,
+                                        idpage: idpage,
+                                        typeTracking: type,
+                                        zone: zone,
+                                        excontent: content,
+                                        result: result
+                                    }
+                                );
+                            })
+
+                            
+                        } else {
+                            var error = "SVP, la date de fin doit obligatoirement être supérieur à la date d'aujourd'hui ou être celle-ci."
+                            var type = 2
+                            res.render(
+                                'root/tracking/tracking_special', {
+                                    tabside: tabside,
+                                    idpage: idpage,
+                                    typeTracking: type,
+                                    zone: zone,
+                                    error, 
+                                    excontent: content
+                                }
+                            );
+                        }
+                    } else {
+                        var error = "SVP, la date de début doit obligatoirement être inferieur à la date de fin."
+                        var type = 2
+                        res.render(
+                            'root/tracking/tracking_special', {
+                                tabside: tabside,
+                                idpage: idpage,
+                                typeTracking: type,
+                                zone: zone,
+                                error, 
+                                excontent: content
+                            }
+                        );
+                    }
+
+                } else {
+                    console.log('Zône inconnue')
+                    res.redirect('/root/tracking/'+trackercible+'/allcible')
                 }
-            );
+            })
             break;
 
         default:
             res.redirect('/root/tracking')
             break;
     }
+})
+
+router.get('/zones/details/:codezone', (req, res, next) => {
+    var idpage = 2
+    var tabside = Sidebare.activeSidebare(tabsidebase, idpage)
+    console.log("================================================================================")
+    console.log(tabside[idpage])
+    console.log("================================================================================")
+
+    var codezone = req.params.codezone
+
+    Zone.findByOneField('code_zone', codezone, (futzone) => {
+        if(futzone.length !== 0 && futzone !== null && futzone.length === 1) {
+            res.render(
+                'root/tracking/details_zone', {
+                    tabside: tabside,
+                    idpage: idpage,
+                    zone: futzone[0]
+                }
+            );
+        } else {
+            res.redirect('/root/tracking/zones/allcible')
+        }
+    })
+    
+})
+
+router.get('/zones/changer_statut/:code/:codezone', (req, res, next) => {
+    var code = req.params.code
+    var codezone = req.params.codezone
+
+    Zone.findByOneField('code_zone', codezone, (futzone) => {
+        if(futzone.length !== 0 && futzone !== null){
+            switch (code) {
+                case '0':
+                    Zone.replaceByOneField(codezone, 'statut', 0, (msg) => {
+                        console.log(msg)
+                    })
+                    res.redirect('/root/tracking/zones/details/'+codezone)
+                    break;
+                case '1':
+                    Zone.replaceByOneField(codezone, 'statut', 1, (msg) => {
+                        console.log(msg)
+                    })
+                    res.redirect('/root/tracking/zones/details/'+codezone)
+                    break;
+            
+                default:
+                    console.log("Code non valide")
+                    res.redirect('/root/tracking/zones/details/'+codezone)
+                    break;
+            }
+        } else {
+            console.log("Zone inconnue")
+            res.redirect('/root/tracking/zones/allcible')
+        }
+    })
 })
 
 module.exports = router;

@@ -1,0 +1,127 @@
+<%- extend('../../dashbase.ejs') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary card-header-icon ">
+                <div class="card-icon">
+                    <i class="material-icons">description</i>
+                </div>
+                <div class="card-icon">
+                    <i class="material-icons">place</i>
+                </div>
+                <p class="card-category">SERVICE TRACKING</p>
+                <h1 class="card-title">DETAILS SUR LA ZÔNE ACTUELLE
+                    <br>
+                    <small></small>
+                </h1>
+            </div>
+            <div class="card-body">
+                <div class="col-md-8 offset-md-2">
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <div class="card-title">
+                                <h4>
+                                    Informations complémentaires sur la zône
+                                </h4>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Identifiant Zône</th>
+                                            <td>
+                                                <%= zone.codeZone %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Intitule</th>
+                                            <td>
+                                                <%= zone.intitule %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Latitude Centre</th>
+                                            <td>
+                                                <%= zone.latitudeCentre %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Longitude Centre</th>
+                                            <td>
+                                                <%= zone.longitudeCentre %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rayon</th> 
+                                            <td>
+                                                <%= zone.rayon %> mètre(s)
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Statut</th>
+                                            <td>
+                                                <% if(zone.statut === 0) { %> 
+                                                    <p style="color: green;">
+                                                        Saine (Non À Risque)
+                                                    </p>
+                                                <% } else { %>
+                                                    <p style="color: red;">
+                                                        Non Saine (À Risque)
+                                                    </p>
+                                                <% } %>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>
+                                                Mapping Zône
+                                            </th>
+                                           <td>
+                                                <a href="/root/service_mapping/voir_zone/<%= zone.codeZone %> " class="btn btn-primary">
+                                                    Voir Zône
+                                                </a>
+                                           </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <div class="card-title">
+                                <h4>
+                                    Interface de changement de statut
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="row justify-content-around">
+                                <% if(zone.statut != 0) {%> 
+                                    <a href="/root/tracking/zones/changer_statut/0/<%= zone.codeZone %>" class="btn btn-success btn-round">
+                                        <i class="material-icons">language</i>
+                                        <b>
+                                            ZÔNE SAINE
+                                        </b>
+                                    </a>
+                                <% } %> 
+                                <% if(zone.statut != 1) {%> 
+                                    <a href="/root/tracking/zones/changer_statut/1/<%= zone.codeZone %>" class="btn btn-danger btn-round">
+                                        <i class="material-icons">language</i>
+                                        <b>
+                                            ZÔNE NON SAINE
+                                        </b>
+                                    </a>
+                                <% } %> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

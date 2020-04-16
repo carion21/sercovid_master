@@ -1,16 +1,18 @@
+<%- extend('../../../dashbase.ejs') %>
+
 <div class="row">
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-10 offset-md-1">
         <div class="card">
             <div class="card-header card-header-primary">
                 <h3 class="card-title">
-                    Liste de toutes les cibles
+                    Liste de toutes les notifications
                 </h3>
                 <p class="card-category">
-                    Type Zônes
+                    Type Individus
                 </p>
             </div>
             <div class="card-body">
-                <% if(locals.info == "yes") {%> 
+                <% if(locals.info == "yes") {%>
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="text-primary">
@@ -18,79 +20,74 @@
                                 Identifiant
                             </th>
                             <th>
-                                Latitude
+                                Titre
                             </th>
                             <th>
-                                Longitude
+                                Lien Web
                             </th>
                             <th>
-                                Rayon
+                                Niveau Importance
                             </th>
                             <th>
-                                Statut
-                            </th>
-                            <th>
-                                Plus de détails
-                            </th>
-                            <th>
-                                Tracking Spécial
+                                Suppression
                             </th>
                         </thead>
                         <tbody>
-                            <% for(cible of z_cibles) { %> 
+                            <% for(notification of notifications) { %>
                             <tr>
                                 <td>
-                                    <%= cible.codeZone %> 
+                                    <%= notification.codeNotification %>
                                 </td>
                                 <td>
-                                    <%= cible.latitudeCentre %> 
+                                    <%= notification.titre %>
                                 </td>
                                 <td>
-                                    <%= cible.longitudeCentre %> 
-                                </td>
-                                <td>
-                                    <%= cible.rayon %> mètres
-                                </td>
-                                <td>
-                                    <% if(cible.statut == 0) { %>
-                                        <span class="text-success">
-                                            <b>
-                                                Zône Saine
-                                            </b>
-                                        </span>
-                                        <% } %>
-                                        <% if(cible.statut == 1) { %>
-                                        <span class="text-danger">
-                                            <b>
-                                                Zône Risquée
-                                            </b>
-                                        </span>
-                                        <% } %>
-                                </td>
-                                <td>
-                                    <a href="/root/tracking/zones/details/<%= cible.codeZone %> "
-                                        class="btn btn-primary btn-round">
-                                        Voir Plus
+                                    <a href="<%= notification.lienWeb %>">
+                                        <%= notification.lienWeb %>
                                     </a>
                                 </td>
                                 <td>
-                                    <a href="/root/tracking/zones/tracking_special/<%= cible.codeZone %> "
-                                        class="btn btn-success btn-round">
+                                    <% if(notification.importance == 0) { %>
+                                        <span style="color: blue;">
+                                            <b>
+                                                Faible
+                                            </b>
+                                        </span>
+                                        <% } %>
+                                        <% if(notification.importance == 1) { %>
+                                        <span class="text-warning">
+                                            <b>
+                                                Moyen
+                                            </b>
+                                        </span>
+                                        <% } %>
+                                        <% if(notification.importance == 2) { %>
+                                        <span class="text-danger">
+                                            <b>
+                                                Fort
+                                            </b>
+                                        </span>
+                                        <% } %>
+                                </td>
+
+                                <td>
+                                    <a href="/root/service_com/notifications/delete/<%= notification.codeNotification %> "
+                                        class="btn btn-danger btn-round">
                                         Effectuer Ici
                                     </a>
                                 </td>
                             </tr>
-                            <% } %> 
+                            <% } %>
                         </tbody>
                     </table>
                 </div>
-            <% } else { %> 
+                <% } else { %>
                 <div class="alert alert-warning" style="text-align: center; color: black;">
                     <h3>
-                        <%= locals.resultatVide %>
+                        Aucune notification existante
                     </h3>
                 </div>
-            <% } %> 
+                <% } %>
             </div>
         </div>
     </div>

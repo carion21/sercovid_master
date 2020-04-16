@@ -1,0 +1,78 @@
+<%- extend('../../../dashbase.ejs') %>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-header card-header-primary">
+                <div class="card-title">
+                    <h4>
+                        Nouvelle Notification
+                    </h4>
+                </div>
+            </div>
+
+            <% if(locals.error) { %>
+                <div class="col-md-6 offset-md-3">
+                    <br />
+                    <div class="alert alert-danger"
+                        style="color: black; text-align: center; font-size: 18px; font-weight: bold;">
+                        <%= locals.error %>
+                    </div>
+                    <br />
+                </div>
+            <% } %>
+
+            <div class="card-body">
+                <form method="POST" action="/root/service_com/notifications/new">
+                    <br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Titre</label>
+                                <input name="titre" type="text" class="form-control" required
+                                    value=<% if(locals.excontent) { %> <%= excontent.titre %> <% } %>>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Lien Web</label>
+                                <input name="lienweb" type="text" class="form-control" required
+                                    value=<% if(locals.excontent) { %> <%= excontent.lienweb %> <% } %>>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-md-4 offset-md-4">
+                            <div class="form-group">
+                                <label for="sel1">
+                                    Niveau d'importance
+                                </label>
+                                <select name="importance" class="form-control" id="sel1" required>
+                                    <option value="0">Faible</option>
+                                    <option value="1">Moyenne</option>
+                                    <option value="2">Forte</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-6"></div>
+                        <div class="col-md-2" style="margin: 5px;">
+                            <button type="reset" class="btn btn-danger ">
+                                Effacer
+                            </button>
+                        </div>
+                        <div class="col-md-2" style="margin: 5px;">
+                            <button type="submit" class="btn btn-primary ">
+                                Enregitrer
+                            </button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

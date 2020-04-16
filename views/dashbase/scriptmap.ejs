@@ -40,7 +40,18 @@
 <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
 <script src="/template/dashboard/assets/js/material-dashboard.js?v=2.1.2" type="text/javascript"></script>
 <!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="/template/dashboard/assets/demo/demo.js"></script>
+
+<% if(locals.voir_zone && locals.voir_zone == 1) { %> 
+  <script src="/template/dashboard/assets/demo/voir_zone.js"></script>
+<% } else { %> 
+  <script src="/template/dashboard/assets/demo/demo.js"></script>
+<% } %> 
+<% if(locals.zonar && locals.zonar == 1) { %> 
+  <script src="/template/dashboard/assets/demo/zonar.js"></script>
+<% } else { %> 
+  <script src="/template/dashboard/assets/demo/demo.js"></script>
+<% } %> 
+
 <script>
   $(document).ready(function() {
     $().ready(function() {

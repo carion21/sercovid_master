@@ -24,7 +24,7 @@
                             <div class="row justify-content-center">
                                 <div class="card-title">
                                     <h3>
-                                        INFORMATIONS RELATIFS AU TRACKING
+                                        INFORMATIONS RELATIVES AU TRACKING
                                     </h3>
                                 </div>
                             </div>
@@ -170,6 +170,138 @@
                                 </div>
                             <% } %>
                         </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8 offset-md-2">
+                    <br>
+                    <div class="card">
+                        <div class="card-header card-header-primary">
+                            <div class="card-title">
+                                <h4>
+                                    RÉSULTATS DE LA RECHERCHE
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <% if(locals.result) { %> 
+                                <%= result.individus %> 
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <th>Identifiant Cible</th>
+                                            <td>
+                                                <%= result.identifiantCible %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date De Début</th>
+                                            <td>
+                                                <%= result.dateDebut %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Heure De Début</th>
+                                            <td>
+                                                <%= result.heureDebut %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Date De Fin</th>
+                                            <td>
+                                                <%= result.dateFin %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Heure De Fin</th>
+                                            <td>
+                                                <%= result.heureFin %> 
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Rayon De Recherche</th>
+                                            <td>
+                                                <%= result.rayon %> mètres
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>Nombre de personnes trouvées</th>
+                                            <td>
+                                                <%= result.nbIndividus %> 
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <br>
+                            <% if(result.nbIndividus !== 0) { %> 
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
+                                        <thead>
+                                            <th>
+                                                N°
+                                            </th>
+                                            <th>
+                                                Identifiant
+                                            </th>
+                                            <th>
+                                                Plus d'info.
+                                            </th>
+                                        </thead>
+                                        <tbody>
+                                            <% for(individu of result.individus) { %> 
+                                                <tr>
+                                                    <td>
+                                                        <% individu.index %> 
+                                                    </td>
+                                                    <td>
+                                                        <%= individu %> 
+                                                    </td>
+                                                    <td>
+                                                        <a href="/root/gestion_individus/voir/<%= individu %>" class="btn btn-primary">
+                                                            Consulter ici
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <% } %> 
+                                        </tbody>
+                                    </table>
+                                </div>
+                            <% } %> 
+                        <% } else { %> 
+                            <div class="alert alert-warning " style="text-align: center; color: black;">
+                                <h4>
+                                    Aucune recherche effectuée
+                                </h4>
+                            </div>
+                        <% } %> 
+                        </div>
+                        <!--
+                        <div class="card-footer" style="text-align: center;">
+                            <% if(locals.result) { %>
+                                <form method="POST" action="/root/tracking/listresultat">
+                                    <input type="hidden" name="type" value=<%= result.type %> >
+                                    <input type="hidden" name="identifiantCible" value=<%= result.identifiantCible %> >
+                                    <input type="hidden" name="dateDebut" value="<%= result.dateDebut %>" >
+                                    <input type="hidden" name="dateFin" value="<%= result.dateFin %>" >
+                                    <input type="hidden" name="rayon" value=<%= result.rayon %> >
+                                    <input type="hidden" name="nbIndividus" value=<%= result.nbIndividus %> >
+
+                                    <div class="row">
+                                        <div class="col-md-6 offset-md-6">
+                                            <button type="submit" class="btn btn-primary pull-right">
+                                                Consulter la liste ici
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            <% } else { %> 
+                                <h5 >
+                                    Veuillez effectuer une recherche
+                                </h5>
+                            <% } %> 
+                        </div> -->
                     </div>
                 </div>
 

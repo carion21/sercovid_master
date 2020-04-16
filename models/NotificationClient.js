@@ -9,13 +9,13 @@ class NotificationClient {
 	 * Constante contenant la fictive Clée Primaire de la table
 	 */
 	static ID() {
-		return 'code_notification_client'
+		return 'code_notification'
 	}
 	/**
 	 * Constante contenant le nom de la table actuelle
 	 */
 	static TABLE() {
-		return 'notification_client'
+		return 'NotificationClient'
 	}
 
 	get id () {

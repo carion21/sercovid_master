@@ -1,0 +1,23 @@
+<%- extend('../../dashmap.ejs') %>
+
+<div id="info" style="display: block;">
+
+    <div id="ztotal"><%= ztotal %> </div>
+
+    <% if(havecenter == 1) { %> 
+        <div id="havecenter"><%= havecenter %></div>
+        <div id="zclatitude"><%= zcenter.latitude %></div>
+        <div id="zclongitude"><%= zcenter.longitude %></div>
+    <% } else { %> 
+        <div id="havecenter"><%= havecenter %></div>
+    <% } %> 
+
+    <% for(fzone of fzones) { %>
+        <div id="title_<%= fzone.zid %>" ><%= fzone.zone.intitule %></div>
+        <div id="rayon_<%= fzone.zid %>"><%= fzone.zone.rayon %></div>
+        <div id="latitude_<%= fzone.zid %>"><%= fzone.zone.latitudeCentre %></div>
+        <div id="longitude_<%= fzone.zid %>"><%= fzone.zone.longitudeCentre %></div>
+        <div id="statut_<%= fzone.zid %>"><%= fzone.zone.statut %></div>
+    <% } %> 
+    
+</div>

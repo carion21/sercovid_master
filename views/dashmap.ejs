@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<%- include('./dashbase/head.ejs') %> 
+<%- include('./dashbase/head.ejs') %>
 
 <body class="">
-  <div class="wrapper ">
-    <%- include('./dashbase/sidebar.ejs') %>
-    <div class="main-panel">
-    <%- include('./dashbase/navbar.ejs') %> 
-        <div id="map"></div>
-        <%# include('./dashbase/footer.ejs') %> 
+    <div class="wrapper ">
+        <%- include('./dashbase/sidebar.ejs') %>
+        <div class="main-panel">
+            <%- include('./dashbase/navbar.ejs') %>
+            <div id="map"></div>
+            
+            <%- content %> 
+            
+            <%# include('./dashbase/footer.ejs') %>
+        </div>
     </div>
-  </div>
-    <%- include('./dashbase/plugin.ejs') %> 
-<%- include('./dashbase/scriptmap.ejs') %> 
+    <%- include('./dashbase/plugin.ejs') %>
+    <%- include('./dashbase/scriptmap.ejs') %>
 </body>
 
 </html>

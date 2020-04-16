@@ -23,21 +23,51 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Latitude (Centre de Zône)</label>
-                                <input name="latitude" type="text" class="form-control" required>
+                                <input name="latitude" type="text" class="form-control" required 
+                                value=
+                                <% if(locals.excontent) { %> 
+                                    <%= excontent.latitude %> 
+                                <% } %>
+                                >
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Longitude (Centre de Zône)</label>
-                                <input name="longitude" type="text" class="form-control" required>
+                                <input name="longitude" type="text" class="form-control" required
+                                value=
+                                <% if(locals.excontent) { %> 
+                                    <%= excontent.longitude %> 
+                                <% } %>
+                                >
                             </div>
                         </div>
                     </div>
+                    <br>
                     <div class="row justify-content-center">
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label class="bmd-label-floating">Rayon de Zône (en mètres)</label>
-                                <input name="rayon" type="number" class="form-control" required>
+                                <input name="rayon" type="number" class="form-control" required
+                                value=
+                                <% if(locals.excontent) { %> 
+                                    <%= excontent.rayon %> 
+                                <% } %>
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="bmd-label-floating">Intitule</label>
+                                <input name="intitule" type="text" class="form-control" required
+                                value=
+                                <% if(locals.excontent) { %> 
+                                    <%= excontent.intitule %> 
+                                <% } %>
+                                >
                             </div>
                         </div>
                     </div>
@@ -45,7 +75,7 @@
                     <div class="row justify-content-center">
                         <div class="col-md-6 offset-md-3">
                             <button type="submit" class="btn btn-primary ">
-                                Enregitrer && Cibler
+                                Enregitrer Nouvelle Zône
                             </button>
                         </div>
                     </div>

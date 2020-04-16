@@ -29,7 +29,7 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS INSCRITS</p>
-                <h1 class="card-title">100
+                <h1 class="card-title"><%= total_inscrits %> 
                     <br>
                     <small></small>
                 </h1>
@@ -48,7 +48,7 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS CONNECTÉS</p>
-                <h1 class="card-title">75
+                <h1 class="card-title"><%= total_connectes %>
                     <br>
                     <small style="font-size: 25px">soit</small>
                     <small><b>75%</b></small>
@@ -68,7 +68,7 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS DÉCONNECTÉS</p>
-                <h1 class="card-title">25
+                <h1 class="card-title"><%= total_deconnectes %>
                     <br>
                     <small style="font-size: 25px">soit</small>
                     <small><b>25%</b></small>
@@ -106,7 +106,7 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS SUIVIS</p>
-                <h1 class="card-title">100
+                <h1 class="card-title"><%= total_suivis %>
                     <br>
                     <small></small>
                 </h1>
@@ -125,10 +125,13 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS ACTIFS</p>
-                <h1 class="card-title">75
+                <h1 class="card-title"><%= total_actifs %>
                     <br>
                     <small style="font-size: 25px">soit</small>
-                    <small><b>75%</b></small>
+                    <small>
+                        <b><%= ((total_actifs/total_suivis)*100 ) %> 
+                        %</b>
+                    </small>
                 </h1>
             </div>
             <div class="card-footer">
@@ -145,10 +148,13 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS NON ACTIFS</p>
-                <h1 class="card-title">25
+                <h1 class="card-title"><%= total_nonactifs %>
                     <br>
                     <small style="font-size: 25px">soit</small>
-                    <small><b>25%</b></small>
+                    <small>
+                        <b><%= ((total_nonactifs/total_suivis)*100 ) %> 
+                        %</b>
+                    </small>
                 </h1>
             </div>
             <div class="card-footer">
@@ -188,10 +194,13 @@
                     <i class="material-icons">people</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS SAINS</p>
-                <h1 class="card-title">100
+                <h1 class="card-title"><%= total_sains %>
                     <br>
                     <small style="font-size: 25px">soit</small>
-                    <small><b>50%</b></small>
+                    <small>
+                        <b><%= ((total_sains/total_suivis)*100 ) %> 
+                        %</b>
+                    </small>
                 </h1>
             </div>
             <div class="card-footer">
@@ -211,10 +220,13 @@
                     <i class="material-icons">warning</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS SUSPECTS</p>
-                <h1 class="card-title">750000
+                <h1 class="card-title"><%= total_suspects %>
                     <br>
                     <small style="font-size: 25px">soit</small>
-                    <small><b>37,5%</b></small>
+                    <small>
+                        <b><%= ((total_suspects/total_suivis)*100 ) %> 
+                        %</b>
+                    </small>
                 </h1>
             </div>
             <div class="card-footer">
@@ -234,10 +246,13 @@
                     <i class="material-icons">error</i>
                 </div>
                 <p class="card-category">TOTAL INDIVIDUS INFECTES</p>
-                <h1 class="card-title">25
+                <h1 class="card-title"><%= total_infectes %>
                     <br>
                     <small style="font-size: 25px">soit</small>
-                    <small><b>12,5%</b></small>
+                    <small>
+                        <b><%= ((total_infectes/total_suivis)*100 ) %> 
+                        %</b>
+                    </small>
                 </h1>
             </div>
             <div class="card-footer">

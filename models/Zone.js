@@ -1,6 +1,6 @@
 let connection = require('../config/connection')
 
-class ProcheIndividu {
+class Zone {
 
 	constructor(row) {
 		this.row = row
@@ -10,43 +10,55 @@ class ProcheIndividu {
 	 * Constante contenant la fictive Clée Primaire de la table
 	 */
 	static ID() {
-		return 'code_position_individu'
+		return 'code_zone'
 	}
 	/**
 	 * Constante contenant le nom de la table actuelle
 	 */
 	static TABLE() {
-		return 'ProcheIndividu'
+		return 'Zone'
 	}
 
 
 	get id () {
 		return this.row.id
 	}
-	get codeProcheIndividu () {
-		return this.row.code_proche_individu
+	get codeZone () {
+		return this.row.code_zone
 	}
 
-	get codeIndividu () {
-		return this.row.code_individu
+	get intitule () {
+		return this.row.intitule
 	}
 
-	get lien () {
-		return this.row.latitude
+	get latitudeCentre () {
+		return this.row.latitude_centre
 	}
 
-	get telephone () {
-		return this.row.telephone
+	get longitudeCentre () {
+		return this.row.longitude_centre
+	}
+
+	get rayon () {
+		return this.row.rayon
+	}
+
+	get mettreEnCorbeille () {
+		return this.row.mettre_en_corbeille
+	}
+
+	get statut () {
+		return this.row.statut
 	}
 
 	get dateRegister () {
 		return this.row.date_register
 	}
 
-	static genCodeProcheIndividu() {
+	static genCodeZone() {
 		let min = 1000000000
 		let max = 9999999999
-		let text= "ProcheIndividu-"
+		let text= "Zone-"
         min = Math.ceil(min);
 		max = Math.floor(max);
   		let nb  = Math.floor(Math.random() * (max - min +1)) + min
@@ -55,19 +67,22 @@ class ProcheIndividu {
 	}
 
 	static create(content, cb) {
-		let ID		= ProcheIndividu.ID()
-		let TABLE 	= ProcheIndividu.TABLE()
-		let codeProcheIndividu 	= content.codeProcheIndividu
-		let codeIndividu = content.codeIndividu
-		let lien		= content.lien
-		let telephone	= content.telephone
+		let ID		= Zone.ID()
+		let TABLE 	= Zone.TABLE()
+		let codeZone 	= content.codeZone
+		let intitule	= content.intitule
+		let latitudeCentre = content.latitudeCentre
+		let longitudeCentre = content.longitudeCentre
+		let mettreEnCorbeille		= content.mettreEnCorbeille
+		let rayon		= content.rayon
+		let statut		= content.statut
 		let dateRegister= new Date()
-		let sql = 'INSERT INTO '+ TABLE +' SET '+ ID +' = ?, lien = ?, telephone = ?,'
-		+' date_register = ?'
-		connection.query(sql, [codeProcheIndividu, codeIndividu, lien, telephone, dateRegister],
+		let sql = 'INSERT INTO '+ TABLE +' SET '+ ID +' = ?, intitule = ?, latitude_centre = ?, longitude_centre = ?, rayon = ?,'
+		+' mettre_en_corbeille = ?, statut = ?, date_register = ?'
+		connection.query(sql, [codeZone, intitule, latitudeCentre, longitudeCentre, rayon, mettreEnCorbeille, statut, dateRegister],
 			(err, result) => {
 				if (err) throw err
-				let msg = "ProcheIndividu bien ajouté"
+				let msg = "Zone bien ajoutée"
 				cb(msg)
 			})
 
@@ -82,12 +97,12 @@ class ProcheIndividu {
 	 * @return {Object Array}         [ligne de la table]
 	 */
 	static findByOneField(field, value, cb) {
-		let TABLE = ProcheIndividu.TABLE()
+		let TABLE = Zone.TABLE()
 		let sql = 'SELECT * FROM '+ TABLE +' WHERE '+ field +' = ?'
 		connection.query(sql, [value], 
 			(err, rows) => {
 				if (err) throw err
-				cb(rows.map((row) => new ProcheIndividu(row)))
+				cb(rows.map((row) => new Zone(row)))
 			})
 	}
 
@@ -101,12 +116,12 @@ class ProcheIndividu {
 	 * @return {Object Array}         [ligne de la table]
 	 */
 	static findByTwoField(field1, value1, field2, value2, cb) {
-		let TABLE = ProcheIndividu.TABLE()
+		let TABLE = Zone.TABLE()
 		let sql = 'SELECT * FROM '+ TABLE +' WHERE '+ field1 +' = ? AND '+ field2 +' = ?'
 		connection.query(sql, [value1, value2], 
 			(err, rows) => {
 				if (err) throw err
-				cb(rows.map((row) => new ProcheIndividu(row)))
+				cb(rows.map((row) => new Zone(row)))
 			})
 	}
 
@@ -119,8 +134,8 @@ class ProcheIndividu {
 	 * @return {void}           [confirmation]
 	 */
 	static replaceByOneField (IdFieldValue, field, value, cb) {
-		let TABLE = ProcheIndividu.TABLE()
-		let ID = ProcheIndividu.ID()
+		let TABLE = Zone.TABLE()
+		let ID = Zone.ID()
 		let sql = 'UPDATE '+ TABLE +' SET '+ field +' = ? WHERE '+ ID +' = ?'
 		connection.query(sql, [value, IdFieldValue], 
 			(err, results) => {
@@ -136,10 +151,10 @@ class ProcheIndividu {
 	 * @return {array}      [tableau contenant les lignes de la table]
 	 */
 	static all(cb) {
-		let TABLE = ProcheIndividu.TABLE();
+		let TABLE = Zone.TABLE();
 		connection.query('SELECT * FROM '+ TABLE +' ', (err, rows) => {
 			if (err) throw err
-			cb(rows.map((row) => new ProcheIndividu(row)))
+			cb(rows.map((row) => new Zone(row)))
 		})
 		//connection.end()
 	}
@@ -151,16 +166,16 @@ class ProcheIndividu {
 	 * @return {void}       [confirmation]
 	 */
 	static remove(row, cb) {
-		let codeProcheIndividu = row.codeProcheIndividu
-		let TABLE = ProcheIndividu.TABLE()
-		let ID = ProcheIndividu.ID()
+		let codeZone = row.codeZone
+		let TABLE = Zone.TABLE()
+		let ID = Zone.ID()
 		let sql = 'DELETE FROM '+ TABLE +' WHERE '+ ID +' = ?'
-		connection.query(sql, [codeProcheIndividu], (err, result) => {
+		connection.query(sql, [codeZone], (err, result) => {
 			if (err) throw err
-			let msg = "ProcheIndividu supprimé avec succès..."
+			let msg = "Zone supprimé avec succès..."
 			cb(msg)
 		})
 	}
 }
 
-module.exports = ProcheIndividu
+module.exports = Zone
